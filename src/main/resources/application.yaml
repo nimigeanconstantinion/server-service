@@ -1,0 +1,54 @@
+springdoc:
+  api-docs.path: /openapi/v3/api-docs
+  packagesToScan: com.example.nserver
+  pathsToMatch: /**
+  swagger-ui:
+    path: /custom-swagger-ui/index.html
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate-dialect: org.hibernate.dialect.MySQL5Dialect
+      hibernate.format_sql: true
+
+    show-sql: true
+server:
+  error:
+    include-binding-errors: always
+    include-message: always
+  port: 8080
+
+
+api:
+  common:
+    version: 1.0.0
+    title: Sample Microservices API
+    description: Description of the API...
+    termsOfService: MY TERMS OF SERVICE
+    license: MY LICENSE
+    licenseUrl: MY LICENSE URL
+    externalDocDesc: MY WIKI PAGE
+    externalDocUrl: MY WIKI URL
+    contact:
+      name: NAME OF CONTACT
+      url: URL TO CONTACT
+      email: contact@mail.com
+  responseCodes:
+    ok.description: OK
+    badRequest.description: Bad Request, invalid format of the request. See response message for more information
+    notFound.description: Not found, the specified id does not exist
+    unprocessableEntity.description: Unprocessable entity, input parameters caused the processing to fail. See response message for more information
+
+app:
+  query-service:
+    host: localhost
+    port: 8082
+  command-service:
+    host: localhost
+    port: 8081
