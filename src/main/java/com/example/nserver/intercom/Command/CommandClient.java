@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "command-service",url = "http://localhost:8081/api/v1/command")
+//@FeignClient(name = "command-service",url = "http://localhost:8081/api/v1/command")
+@FeignClient(name = "command-service",url = "http://"+"${param.command-service}"+":8081/api/v1/command")
 public interface CommandClient {
    @GetMapping("/getallmap")
    ResponseEntity<List<MapStocOpt>> getAllMapStoc();

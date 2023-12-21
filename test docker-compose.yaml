@@ -1,0 +1,114 @@
+version: '3.8'
+
+networks:
+  mynet:
+    driver: bridge
+
+volumes:
+  db_data:
+
+services:
+  mysql:
+     image: mysql:5.7
+     environment:
+       MYSQL_ROOT_PASSWORD: root
+       MYSQL_DATABASE: micro_db
+     networks:
+       - mynet
+     ports:
+       - "3307:3306"
+     volumes:
+       - db_data:/var/lib/mysql
+     healthcheck:
+       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+       timeout: 20s
+       retries: 10
+
+  query-service:
+    image: ion21/query-service:v1
+    networks:
+      - mynet
+    ports:
+      - "8082:8082"
+    environment:
+        SPRING_PROFILE_ACTIVE: "docker"
+        SPRING_DATASOURCE_URL: "jdbc:jtds:sqlserver://192.168.0.87/ecuator_app"
+        SPRING_DATASOURCE_USERNAME: "sa"
+        SPRING_DATASOURCE_PASSWORD: "asAS"
+        SPRING_DATASOURCE_DRIVER-CLASS-NAME: "net.sourceforge.jtds.jdbc.Driver"
+        SPRING_DATASOURCE_HIKARI_CONNECTION-TEST-QUERY: SELECT 1
+        SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: com.microsoft.sqlserver.jdbc.SQLServerDriver
+        SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: "true"
+        SPRING_JPA_SHOW_SQL: "true"
+        SERVER_PORT: 8082
+
+#  command-service:
+#    image: ion21/command-service:v1
+#    networks:
+#      - mynet
+#    ports:
+#      - "8081:8081"
+#    environment:
+#      SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/micro_db?createDatabaseIfNotExist=true"
+#      SPRING_DATASOURCE_USERNAME: root
+#      SPRING_DATASOURCE_PASSWORD: root
+#      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+#      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+#      SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: "true"
+#      SPRING_JPA_SHOW_SQL: "true"
+#      SERVER_PORT: 8081
+#    depends_on:
+#      mysql:
+#        condition: service_healthy
+#
+#  nserver:
+#    image: ion21/nserver-service:v1
+#    networks:
+#      - mynet
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/micro_db?createDatabaseIfNotExist=true"
+#      SPRING_DATASOURCE_USERNAME: root
+#      SPRING_DATASOURCE_PASSWORD: root
+#      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+#      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+#      SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: "true"
+#      SPRING_JPA_SHOW_SQL: "true"
+#      SERVER_PORT: 8080
+#      token_jwt_secretKey: 413F4428472783999G9329HND9032MPENKSE9UND0303900291NNE0DNQ9WQWN0239NDE94B6250655368566D5970337336763979244226452948404D6351
+#      springdoc:
+#        api-docs:
+#          enabled: true
+#          common:
+#            version: 1.0.0
+#            title: Sample Microservices API
+#            description: Description of the API...
+#            termsOfService: MY TERMS OF SERVICE
+#            license: MY LICENSE
+#            licenseUrl: MY LICENSE URL
+#            externalDocDesc: MY WIKI PAGE
+#            externalDocUrl: MY WIKI URL
+#            contact:
+#              name: NAME OF CONTACT
+#              url: URL TO CONTACT
+#              email: contact@mail.com
+#          query-serv:
+#            description: "get list of all products from External DB"
+#            notes: |
+#              # Notes
+#
+#              The service fetch list of MapStocOpt from external DB in purpose of updating owned DB
+#
+#              The fetch will return :
+#
+#              **1.** List of MapStocOpt object
+#
+#              **2.** Will insert an entry in log.info with message :"Am reusit fetch din bd mapstoc" and the list.size
+#
+#              # Test Title
+#                ljlljl
+#
+#    depends_on:
+#      mysql:
+#        condition: service_healthy

@@ -1,0 +1,45 @@
+version: '3.8'
+
+networks:
+  mynet:
+    driver: bridge
+
+volumes:
+  db_data:
+
+services:
+  #  mysql:
+  #    image: mysql:5.7
+  #    environment:
+  #      MYSQL_ROOT_PASSWORD: root
+  #      MYSQL_DATABASE: micro_db
+  #    networks:
+  #      - mynetwork
+  #    ports:
+  #      - "3307:3306"
+  #    volumes:
+  #      - db_data:/var/lib/mysql
+  #    healthcheck:
+  #      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+  #      timeout: 20s
+  #      retries: 10
+
+  query-service:
+    image: ion21/query-service:v1
+    networks:
+      - mynet
+    ports:
+      - "8082:8082"
+    environment:
+      #      SPRING_DATASOURCE_URL: "jdbc:jtds:sqlserver://192.168.0.87/ecuator_app"
+      #      SPRING_DATASOURCE_USERNAME: sa
+      #      SPRING_DATASOURCE_PASSWORD: asAS
+      #      SPRING_DATASOURCE_DRIVER-CLASS-NAME: net.sourceforge.jtds.jdbc.Driver
+      #      SPRING_DATASOURCE_HIKARI_CONNECTION-TEST-QUERY: SELECT 1
+      #      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      #      SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: "true"
+      #      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_APPLICATION_NAME: query
+      APPLICATION_JWT_SECRETKEY: asdasdasdasdasd123344asdasdasdasdasasd12321332sadas
+      APPLICATION_JWT_TOKENPREFIX: Bearer
+      APPLICATION_JWT_TOKENEXPIRATIONAFTERDAYS: "7"

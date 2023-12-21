@@ -1,13 +1,22 @@
-springdoc:
-  api-docs.path: /openapi/v3/api-docs
-  packagesToScan: com.example.nserver
-  pathsToMatch: /**
-  swagger-ui:
-    path: /custom-swagger-ui/index.html
+#springdoc:
+#  api-docs.path: /openapi/v3/api-docs
+#  packagesToScan: com.example.nserver
+#  pathsToMatch: /**
+#  swagger-ui:
+#    path: /custom-swagger-ui/index.html
+
 
 spring:
+  cors:
+    allowed-origins:
+      - http://localhost:8080
+    allowed-methods:
+      - GET
+      - POST
+      - DELETE
+      - UPDATE
   datasource:
-    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/micro_db?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true
     username: root
     password: root
   jpa:
@@ -18,37 +27,33 @@ spring:
       hibernate.format_sql: true
 
     show-sql: true
+
+
+
 server:
   error:
     include-binding-errors: always
     include-message: always
   port: 8080
 
+token:
+  jwt:
+    secretKey: 413F4428472783999G9329HND9032MPENKSE9UND0303900291NNE0DNQ9WQWN0239NDE94B6250655368566D5970337336763979244226452948404D6351
 
-api:
-  common:
-    version: 1.0.0
-    title: Sample Microservices API
-    description: Description of the API...
-    termsOfService: MY TERMS OF SERVICE
-    license: MY LICENSE
-    licenseUrl: MY LICENSE URL
-    externalDocDesc: MY WIKI PAGE
-    externalDocUrl: MY WIKI URL
-    contact:
-      name: NAME OF CONTACT
-      url: URL TO CONTACT
-      email: contact@mail.com
-  responseCodes:
-    ok.description: OK
-    badRequest.description: Bad Request, invalid format of the request. See response message for more information
-    notFound.description: Not found, the specified id does not exist
-    unprocessableEntity.description: Unprocessable entity, input parameters caused the processing to fail. See response message for more information
+#app:
+#  query-service:
+#    host: localhost
+#    port: 8082
+#
+#  command-service:
+#    host: localhost
+#    port: 8081
+#
+#  security-service:
+#    host: localhost
+#    port: 8083
 
-app:
-  query-service:
-    host: localhost
-    port: 8082
-  command-service:
-    host: localhost
-    port: 8081
+param:
+  command-service: localhost
+  query-service: localhost
+

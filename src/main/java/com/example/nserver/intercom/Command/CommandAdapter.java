@@ -16,7 +16,7 @@ public class CommandAdapter {
         this.commandClient = commandClient;
     }
 
-   public List<MapStocOpt> getComAll(){
+    public List<MapStocOpt> getComAll(){
         try {
             ResponseEntity<List<MapStocOpt>> resp=commandClient.getAllMapStoc();
             return resp.getBody();
@@ -45,11 +45,11 @@ public class CommandAdapter {
     }
 
     public MapStocOpt updMap(MapStocOpt uMap){
-        try{
-            return commandClient.updateMapStoc(uMap).getBody();
-        }catch (RuntimeException e){
-            throw e;
-        }
+            ResponseEntity<MapStocOpt> ump=commandClient.updateMapStoc(uMap);
+            if(ump.getStatusCode()==HttpStatus.OK){
+                return ump.getBody();
+            }
+            throw new RuntimeException("Can't update product");
     }
 
     public boolean addBulkMapStoc(List<MapStocOpt> lmp){

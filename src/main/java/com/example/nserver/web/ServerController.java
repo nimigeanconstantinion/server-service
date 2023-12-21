@@ -1,11 +1,27 @@
 package com.example.nserver.web;
 
+import com.example.nserver.dto.UserDTO;
 import com.example.nserver.intercom.Command.CommandAdapter;
 import com.example.nserver.intercom.Query.QueryAdapter;
+import com.example.nserver.intercom.Security.SecurityAdapter;
+import com.example.nserver.jwt.JWTTokenProvider;
 import com.example.nserver.model.MapStocOpt;
+import com.example.nserver.model.User;
+import com.example.nserver.security.UserRole;
+import com.example.nserver.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,18 +33,39 @@ import java.util.List;
 public class ServerController {
     private QueryAdapter queryAdapter;
     private CommandAdapter commandAdapter;
+//    private SecurityAdapter securityAdapter;
+    private UserService userService;
+    private AuthenticationManager authenticationManager;
+    private JWTTokenProvider jwtTokenProvider;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-    public ServerController(QueryAdapter queryAdapter,CommandAdapter commandAdapter) {
+    public ServerController(QueryAdapter queryAdapter,
+                            CommandAdapter commandAdapter,UserService userService
+    ,JWTTokenProvider jwtTokenProvider,AuthenticationManager authenticationManager,
+                            BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.queryAdapter = queryAdapter;
         this.commandAdapter = commandAdapter;
+//        this.securityAdapter=securityAdapter;
+        this.userService=userService;
+        this.jwtTokenProvider=jwtTokenProvider;
+        this.authenticationManager=authenticationManager;
+        this.bCryptPasswordEncoder=bCryptPasswordEncoder;
     }
 
 
+    @Tag(name = "Query-service",description = "query controller - get all External Products")
+    @Operation(summary = "fetch data from external DB",description = "${springdoc.api-docs.query-serv.notes}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the list",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = List.class)) })})
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/qallmap")
     public ResponseEntity<List<MapStocOpt>> queryAllMap(){
         try{
+
+
             List<MapStocOpt> response=queryAdapter.queryAllMap();
             log.info("Am reusit fetch din bd mapstoc",response.size());
             return ResponseEntity.ok(response);
@@ -38,7 +75,17 @@ public class ServerController {
         }
     }
 
-    @ResponseStatus(HttpStatus.OK)
+//
+//    @Tag(name = "Group 2", description = "Endpoints Group 2")
+//
+//    @Tag(name ="${api.command-service.get-all-command-mapping-products.name}")
+////            description = "${api.command-service.get-all-command-mapping-products.description}")
+//    @Operation(
+//        summary = "sulkslklkwe;;l;"
+//    )
+@Tag(name = "Command-service")
+
+@ResponseStatus(HttpStatus.OK)
     @GetMapping("/comallmap")
     public ResponseEntity<List<MapStocOpt>> comAllMap(){
         try{
@@ -50,7 +97,15 @@ public class ServerController {
             throw e;
         }
     }
-
+//
+//    @Tag(name = "Group 2", description = "Endpoints Group 2")
+//
+//    @Tag(name ="get-by-id",
+//           description = "descreire by id")
+//    @Operation(
+//            summary = "rezumat"
+//    )
+    @Tag(name = "Command-service")
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/mapbyid/{idProd}")
     public ResponseEntity<MapStocOpt> queryByIdProd(@PathVariable String idProd){
@@ -62,6 +117,8 @@ public class ServerController {
         }
     }
 
+    @Tag(name = "Command-service")
+
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/addmap")
     public ResponseEntity<MapStocOpt> addMapStocOpt(@RequestBody MapStocOpt mp){
@@ -72,6 +129,7 @@ public class ServerController {
             throw e;
         }
     }
+    @Tag(name = "Command-service")
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/addbulk")
@@ -83,16 +141,72 @@ public class ServerController {
             throw e;
         }
     }
+    @Tag(name = "Command-service")
 
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/del/{idP}")
     public ResponseEntity<Boolean> delMapByID(@PathVariable String idP){
         return ResponseEntity.ok(commandAdapter.deleteMapStoc(idP));
     }
-
+    @Operation(tags = "Command-service",summary = "update product with body content",
+            description = "${}")
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/upd")
     public ResponseEntity<MapStocOpt> updateMapStoc(@RequestBody MapStocOpt uMap){
-        return ResponseEntity.ok(commandAdapter.updMap(uMap));
+
+        try{
+            MapStocOpt mpp=commandAdapter.updMap(uMap);
+            return ResponseEntity.ok(mpp);
+        }catch (RuntimeException e){
+            throw e;
+        }
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/login")
+    public UserDTO login(@RequestBody UserDTO user){
+        User usr=userService.getUserFromEmail(user.getEmail());
+        if(usr!=null){
+
+
+            if(bCryptPasswordEncoder.matches(user.getPassword(),usr.getPassword())){
+                String tkn=jwtTokenProvider.generateJWTToken(usr);
+                UserDTO usrDT=userService.userToDTO(usr);
+                usrDT.setToken(tkn);
+                return usrDT;
+            }else{
+                throw new RuntimeException("Password did not match , retry!!");
+            }
+
+        }else{
+            throw new RuntimeException("User din not exists !! Please Sign-up!!");
+
+
+        }
+
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/register")
+    public String signup(@RequestBody User user){
+
+        User usr=userService.getUserFromEmail(user.getEmail());
+
+        if(usr==null){
+            User newUser=new User();
+            newUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            newUser.setEmail(user.getEmail());
+            newUser.setRole(UserRole.USER);
+//            newUser.setRole();
+            newUser.setName(user.getName());
+            userService.addUser(newUser);
+            return jwtTokenProvider.generateJWTToken(newUser);
+
+
+        }else{
+            throw new RuntimeException("You can not sign-up !! User is already signed!!");
+
+
+        }
+
     }
 }
