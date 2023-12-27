@@ -7,14 +7,24 @@
 
 
 spring:
-  cors:
-    allowed-origins:
-      - http://localhost:8080
-    allowed-methods:
-      - GET
-      - POST
-      - DELETE
-      - UPDATE
+  mvc:
+    dispatch-options-request: true
+  servlet:
+    cors:
+      allow-origins: http://localhost:3000
+      allowed-methods: GET,POST,DELETE,UPDATE
+      allowedHeaders: "*"
+      allowCredentials: true
+#    allowed-headers:
+#      - Content-Type
+#      - Authorization
+#      - X-Custom-Header
+#  mvc:
+#    messageConverters:
+#      -
+#        converter:
+#          type: org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+
   datasource:
     url: jdbc:mysql://localhost:3306/micro_db?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true
     username: root

@@ -162,10 +162,12 @@ public class ServerController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:3000",methods = {RequestMethod.GET, RequestMethod.POST})
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
     public UserDTO login(@RequestBody UserDTO user){
         User usr=userService.getUserFromEmail(user.getEmail());
+
         if(usr!=null){
 
 
