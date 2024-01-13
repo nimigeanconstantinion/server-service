@@ -162,7 +162,7 @@ public class ServerController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:3000",methods = {RequestMethod.GET, RequestMethod.POST})
+//    @CrossOrigin(origins = {"http://localhost:3000"})
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
     public UserDTO login(@RequestBody UserDTO user){
@@ -187,6 +187,7 @@ public class ServerController {
         }
 
     }
+//    @CrossOrigin(origins = {"*"})
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/register")
     public String signup(@RequestBody User user){

@@ -7,14 +7,12 @@
 
 
 spring:
-  mvc:
-    dispatch-options-request: true
-  servlet:
-    cors:
-      allow-origins: http://localhost:3000
-      allowed-methods: GET,POST,DELETE,UPDATE
-      allowedHeaders: "*"
-      allowCredentials: true
+#  servlet:
+#    cors:
+#      allow-origins: null
+#      allowed-methods: GET,POST,DELETE,UPDATE
+#      allowedHeaders: "*"
+#      allowCredentials: true
 #    allowed-headers:
 #      - Content-Type
 #      - Authorization
