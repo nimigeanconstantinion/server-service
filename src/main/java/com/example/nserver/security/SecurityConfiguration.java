@@ -69,21 +69,7 @@ public class SecurityConfiguration {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder.userDetailsService(userDetailsService);
         http.csrf(crsf->crsf.disable());
-//        http.cors(withDefaults());
-        http.cors(custom->custom.configurationSource(
-                (res)->{
-                    CorsConfiguration cors = new CorsConfiguration();
-                    cors.setAllowedOrigins(Arrays.asList("http://localhost:5000","http://localhost:3000"));
-                    cors.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
-                    cors.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE"));
-                    cors.setAllowCredentials(true);
-                    cors.setMaxAge(3600L);
-                    return cors;
-
-                }
-
-
-        ));
+        http.cors(withDefaults());
         http.sessionManagement(session->session.sessionCreationPolicy(STATELESS));
         http.authorizeHttpRequests(authorize->authorize.requestMatchers(PUBLIC_URLS).permitAll());
         http.authorizeHttpRequests(authorize->authorize.anyRequest().authenticated());
@@ -97,14 +83,5 @@ public class SecurityConfiguration {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-//    @Bean
-//    public CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5000")); // or use "*" for all origins
-//        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-//        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
+
 }

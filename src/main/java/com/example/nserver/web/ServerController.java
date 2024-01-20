@@ -165,7 +165,7 @@ public class ServerController {
 //    @CrossOrigin(origins = {"http://localhost:3000"})
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
-    public UserDTO login(@RequestBody UserDTO user){
+    public ResponseEntity<UserDTO> login(@RequestBody UserDTO user){
         User usr=userService.getUserFromEmail(user.getEmail());
 
         if(usr!=null){
@@ -175,7 +175,7 @@ public class ServerController {
                 String tkn=jwtTokenProvider.generateJWTToken(usr);
                 UserDTO usrDT=userService.userToDTO(usr);
                 usrDT.setToken(tkn);
-                return usrDT;
+                return new ResponseEntity<>(usrDT,HttpStatus.OK);
             }else{
                 throw new RuntimeException("Password did not match , retry!!");
             }

@@ -1,14 +1,16 @@
-#springdoc:
+springdoc:
 #  api-docs.path: /openapi/v3/api-docs
 #  packagesToScan: com.example.nserver
 #  pathsToMatch: /**
 #  swagger-ui:
 #    path: /custom-swagger-ui/index.html
+  api-docs:
+    version: openapi_3_0
 
 
 spring:
 #  servlet:
-#    cors:
+#    cors:4
 #      allow-origins: null
 #      allowed-methods: GET,POST,DELETE,UPDATE
 #      allowedHeaders: "*"
@@ -24,7 +26,7 @@ spring:
 #          type: org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 
   datasource:
-    url: jdbc:mysql://localhost:3306/micro_db?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/micro_db?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
     username: root
     password: root
   jpa:
