@@ -25,7 +25,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/server")
-@CrossOrigin
 @Slf4j
 public class ServerController {
     private QueryAdapter queryAdapter;
@@ -187,7 +186,7 @@ public class ServerController {
 //    @CrossOrigin(origins = {"*"})
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/register")
-    public String signup(@RequestBody User user){
+    public ResponseEntity<String> signup(@RequestBody User user){
 
         User usr=userService.getUserFromEmail(user.getEmail());
 
@@ -199,7 +198,7 @@ public class ServerController {
 //            newUser.setRole();
             newUser.setName(user.getName());
             userService.addUser(newUser);
-            return jwtTokenProvider.generateJWTToken(newUser);
+            return new ResponseEntity<>(jwtTokenProvider.generateJWTToken(newUser),HttpStatus.OK);
 
 
         }else{
