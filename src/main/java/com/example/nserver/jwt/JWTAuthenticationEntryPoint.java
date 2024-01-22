@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Date;
 
+import static com.example.nserver.utils.Utile.FORBIDDEN_MESSAGE;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static com.example.nserver.utils.Utile.FORBIDDEN_MESSAGE;
 
 @Component
 public class JWTAuthenticationEntryPoint extends Http403ForbiddenEntryPoint {

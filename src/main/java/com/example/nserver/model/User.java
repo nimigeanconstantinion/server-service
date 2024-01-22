@@ -1,12 +1,14 @@
 package com.example.nserver.model;
+
 import com.example.nserver.security.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import static com.example.nserver.security.UserPermisson.*;
-import static com.example.nserver.security.UserRole.*;
+
 import java.util.Collection;
+
+import static com.example.nserver.security.UserRole.USER;
 
 @Data
 @AllArgsConstructor

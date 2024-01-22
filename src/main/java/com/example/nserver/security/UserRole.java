@@ -4,9 +4,10 @@ import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import static com.example.nserver.security.UserPermisson.*;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static com.example.nserver.security.UserPermisson.*;
 
 @AllArgsConstructor
 public enum UserRole {

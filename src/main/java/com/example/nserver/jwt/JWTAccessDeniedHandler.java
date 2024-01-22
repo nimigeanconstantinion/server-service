@@ -13,9 +13,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Date;
 
+import static com.example.nserver.utils.Utile.ACCESS_DENIED_MESSAGE;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static com.example.nserver.utils.Utile.ACCESS_DENIED_MESSAGE;
 
 @Component
 public class JWTAccessDeniedHandler implements AccessDeniedHandler {
