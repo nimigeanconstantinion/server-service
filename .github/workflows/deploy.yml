@@ -32,4 +32,4 @@ jobs:
           USERNAME=ion21 \
           REPO=server-service \
           TAG=${{ env.BUILD_NUMBER }} \
-          ci/build-publish.sh ci
+          ci/build-publish.sh .
