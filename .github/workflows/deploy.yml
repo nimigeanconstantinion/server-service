@@ -30,6 +30,6 @@ jobs:
         run: |
           chmod +x ci/build-publish.sh
           USERNAME=ion21 \
-          REPO=nserver-service \
+          REPO=server-service \
           TAG=${{ env.BUILD_NUMBER }} \
           ci/build-publish.sh ci
