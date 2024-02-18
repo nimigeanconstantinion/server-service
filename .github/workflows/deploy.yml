@@ -26,3 +26,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Docker Build and push
+        run: |
+          chmod +x .ci/build-publish.sh
+          USERNAME=ion21 \
+          REPO=nserver-service \
+          TAG=${{ env.BUILD_NUMBER }} \
+          .ci/build-publish.sh 
