@@ -159,6 +159,22 @@ public class ServerController {
     }
 
 //    @CrossOrigin(origins = {"http://localhost:3000"})
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/direct")
+    public ResponseEntity<List<MapStocOpt>> directqueryAllMap(){
+        try{
+
+
+            List<MapStocOpt> response=queryAdapter.queryAllMap();
+            log.info("Am reusit fetch din bd mapstoc",response.size());
+            return ResponseEntity.ok(response);
+        }catch (RuntimeException e){
+            log.info("Eroare de fetch lista mapstoc!");
+            throw e;
+        }
+    }
+
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
     public ResponseEntity<UserDTO> login(@RequestBody UserDTO user){
