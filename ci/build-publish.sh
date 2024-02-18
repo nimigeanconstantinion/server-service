@@ -9,7 +9,7 @@
 docker buildx create --use
 
 # Build and push the Docker image
-docker buildx build ./Dockerfile \
+docker buildx build \
     --platform=linux/amd64,linux/arm64 \
     -t "${USERNAME}/${REPO}:${TAG}" \
     -t "${USERNAME}/${REPO}:latest" \
