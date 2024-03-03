@@ -33,3 +33,13 @@ jobs:
           REPO=server-service \
           TAG=${{ env.BUILD_NUMBER }} \
           ci/build-publish.sh ./
+
+  update-docker-compose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout other repository
+        uses: actions/checkout@v2
+        with:
+          repository: 'nimigeanconstantinion/docker-compose-microservices'
+          token: ${{ secrets.DEPLOY_ACCESS_TOKEN }}
+          path: 'docker-compose-microservices'
