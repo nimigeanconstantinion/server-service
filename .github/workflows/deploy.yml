@@ -28,7 +28,6 @@ jobs:
 
       - name: Docker Build and push
         run: |
-          git update-index --chmod=+x mvnw
           chmod +x ci/build-publish.sh
           USERNAME=ion21 \
           REPO=server-service \
