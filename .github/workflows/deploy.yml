@@ -34,9 +34,9 @@ jobs:
           TAG=${{ env.BUILD_NUMBER }} \
           ci/build-publish.sh ./
 
-  update-docker-compose:
-    runs-on: ubuntu-latest
-    steps:
+#  update-docker-compose:
+#    runs-on: ubuntu-latest
+#    steps:
       - name: Checkout other repository
         uses: actions/checkout@v2
         with:
