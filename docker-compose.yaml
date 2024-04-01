@@ -31,7 +31,7 @@ services:
       ports:
         - "8080:8080"
       environment:
-        SPRING_PROFILEs_ACTIVE: docker
+        SPRING_PROFILES_ACTIVE: docker
         JAVA_OPTIONS: -Xdebug -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
       depends_on:
         mysql:
