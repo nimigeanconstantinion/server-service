@@ -25,7 +25,7 @@ services:
         retries: 10
 
     nserver:
-      image: ion21/nserver-service:v2
+      image: ion21/server-service:v2
       networks:
         - mynet
       ports:
