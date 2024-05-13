@@ -24,11 +24,12 @@ spring:
 #      -
 #        converter:
 #          type: org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
-  cloud:
-    eureka:
-      client:
-        serviceUrl:
-          defaultZone: http://localhost:8761/eureka
+#  cloud:
+#    eureka:
+#      client:
+#        serviceUrl:
+#          defaultZone: http://localhost:8761/eureka
+
   datasource:
     url: jdbc:mysql://localhost:3306/micro_db?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
     username: root

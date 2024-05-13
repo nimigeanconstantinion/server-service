@@ -20,11 +20,11 @@ spring:
 #    include-message: always
 #  port: 8080
 #
-  cloud:
-    eureka:
-      client:
-        serviceUrl:
-          defaultZone: http://discovery-service:8761/eureka
+#  cloud:
+#    eureka:
+#      client:
+#        serviceUrl:
+#          defaultZone: http://discovery-service:8761/eureka
 
 token:
   jwt:
