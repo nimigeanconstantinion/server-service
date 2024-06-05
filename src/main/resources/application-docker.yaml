@@ -4,6 +4,10 @@ spring:
       client:
         serviceUrl:
           defaultZone: http://discovery-service:8761/eureka
+        fetch-registry: true
+        register-with-eureka: true
+        enabled: false
+
 
   datasource:
     url: jdbc:mysql://mysql:3306/micro_db?createDatabaseIfNotExist=true
