@@ -22,7 +22,7 @@ springdoc:
     enabled: true
     common:
       version: 1.0.0
-      title: Sample Microservices API
+      title: Sample Microservices API TEST
       description: Description of the API...
       termsOfService: MY TERMS OF SERVICE
       license: MY LICENSE
