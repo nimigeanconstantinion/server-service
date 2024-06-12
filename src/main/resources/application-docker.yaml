@@ -1,14 +1,4 @@
 spring:
-  cloud:
-    eureka:
-      client:
-        serviceUrl:
-          defaultZone: http://discovery-service:8761/eureka
-        fetch-registry: true
-        register-with-eureka: true
-        enabled: true
-
-
   datasource:
     url: jdbc:mysql://mysql:3306/micro_db?createDatabaseIfNotExist=true
     username: root
@@ -73,3 +63,10 @@ springdoc:
 param:
   command-service: command-service
   query-service: query-service
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
