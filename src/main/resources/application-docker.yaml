@@ -3,7 +3,8 @@ spring:
     url: jdbc:mysql://mysql:3306/micro_db?createDatabaseIfNotExist=true
     username: root
     password: root
-
+  application:
+        name: server-service
   jpa:
     hibernate:
       ddl-auto: update
@@ -11,19 +12,6 @@ spring:
       hibernate-dialect: org.hibernate.dialect.MySQLDialect
       hibernate.format_sql: true
     show-sql: true
-
-#
-#server:
-#  error:
-#    include-binding-errors: always
-#    include-message: always
-#  port: 8080
-#
-#  cloud:
-#    eureka:
-#      client:
-#        serviceUrl:
-#          defaultZone: http://discovery-service:8761/eureka
 
 token:
   jwt:
