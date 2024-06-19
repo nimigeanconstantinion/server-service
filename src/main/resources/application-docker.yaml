@@ -59,7 +59,7 @@ management:
 
   zipkin:
     tracing:
-      endpoint: http://zipkin:9411
+      endpoint: http://zipkin:9411/zipkin
 
 eureka:
   client:
