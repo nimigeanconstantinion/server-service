@@ -51,10 +51,16 @@ springdoc:
 param:
   command-service: command-service
   query-service: query-service
+
 management:
   tracing:
     sampling:
       probability: 1.0
+
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411
+
 eureka:
   client:
     serviceUrl:
