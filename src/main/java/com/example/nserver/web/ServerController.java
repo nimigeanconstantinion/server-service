@@ -64,6 +64,7 @@ public class ServerController {
 
             List<MapStocOpt> response=queryAdapter.queryAllMap();
             log.info("Am reusit fetch din bd mapstoc",response.size());
+            System.out.println("Am obtinut raspuns din query ");
             return ResponseEntity.ok(response);
         }catch (RuntimeException e){
             log.info("Eroare de fetch lista mapstoc!");
@@ -179,7 +180,7 @@ public class ServerController {
     @PostMapping("/login")
     public ResponseEntity<UserDTO> login(@RequestBody UserDTO user){
         User usr=userService.getUserFromEmail(user.getEmail());
-
+        System.out.println("Sunt la login cu"+usr.getEmail());
         if(usr!=null){
 
 
@@ -187,6 +188,7 @@ public class ServerController {
                 String tkn=jwtTokenProvider.generateJWTToken(usr);
                 UserDTO usrDT=userService.userToDTO(usr);
                 usrDT.setToken(tkn);
+                System.out.println("Nu-mi va da eroare");
                 return new ResponseEntity<>(usrDT,HttpStatus.OK);
             }else{
                 throw new RuntimeException("Password did not match , retry!!");
