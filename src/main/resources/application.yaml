@@ -11,7 +11,7 @@ springdoc:
 spring:
   cloud:
       compatibility-verifier:
-        enabled=false:
+        enabled: false
   #  cloud:
 #    eureka:
 #      client:
@@ -61,10 +61,10 @@ token:
   jwt:
     secretKey: 413F4428472783999G9329HND9032MPENKSE9UND0303900291NNE0DNQ9WQWN0239NDE94B6250655368566D5970337336763979244226452948404D6351
 
-management:
-  tracing:
-    sampling:
-      probability: 1.0
+#management:
+#  tracing:
+#    sampling:
+#      probability: 1.0
 
 #app:
 #  query-service:
