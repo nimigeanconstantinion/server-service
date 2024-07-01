@@ -50,4 +50,12 @@ param:
   command-service: localhost
   query-service: localhost
 
-
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+metrics:
+  distribution:
+    percentiles-histogram:
+      http:
+        server:
+          requests: true

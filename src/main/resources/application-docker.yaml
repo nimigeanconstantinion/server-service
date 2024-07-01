@@ -60,10 +60,9 @@ param:
   command-service: command-service
   query-service: query-service
 
-#management:
-#  tracing:
-#    sampling:
-#      probability: 1.0
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 
 
 eureka:
@@ -72,3 +71,10 @@ eureka:
       defaultZone: http://discovery-service:8761/eureka
     fetch-registry: true
     register-with-eureka: true
+
+metrics:
+  distribution:
+    percentiles-histogram:
+      http:
+        server:
+          requests: true

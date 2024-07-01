@@ -33,3 +33,10 @@ logging:
   level:
     org.springframework.web.cors: DEBUG
     org.springframework.cloud.gateway: DEBUG
+
+metrics:
+  distribution:
+    percentiles-histogram:
+      http:
+        server:
+          requests: true
