@@ -12,10 +12,11 @@ spring:
       hibernate-dialect: org.hibernate.dialect.MySQLDialect
       hibernate.format_sql: true
     show-sql: true
-
-  # zipkin
   zipkin:
     base-url: http://zipkin:9411/
+    collector:
+      host: zipkin
+
   sleuth:
     sampler:
       probability: 1.0
@@ -24,7 +25,6 @@ spring:
 token:
   jwt:
     secretKey: 413F4428472783999G9329HND9032MPENKSE9UND0303900291NNE0DNQ9WQWN0239NDE94B6250655368566D5970337336763979244226452948404D6351
-
 springdoc:
   api-docs:
     enabled: true
