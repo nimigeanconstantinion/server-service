@@ -1,40 +1,16 @@
 spring:
   application:
     name: server-service
-  cloud:
-    eureka:
-      client:
-        serviceUrl:
-          defaultZone: http://localhost:8761/eureka
 
   zipkin:
-    base-url: http://localhost:9411
-
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/micro_db?createDatabaseIfNotExist=true
-#    username: root
-#    password: root
-#
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-#    properties:
-#      hibernate-dialect: org.hibernate.dialect.MySQL8Dialect
-#      hibernate.format_sql: true
-#    show-sql: true
-#
-#
-#
-#server:
-#  error:
-#    include-binding-errors: always
-#    include-message: always
-#  port: 8080
+    base-url: http://localhost:9411/
+  sleuth:
+    sampler:
+      probability: 1.0
 
 token:
   jwt:
     secretKey: 413F4428472783999G9329HND9032MPENKSE9UND0303900291NNE0DNQ9WQWN0239NDE94B6250655368566D5970337336763979244226452948404D6351
-
 springdoc:
   api-docs:
     enabled: true
@@ -68,12 +44,10 @@ springdoc:
           ljlljl
 
 
-#management:
-#  tracing:
-#    sampling:
-#      probability: 1.0
 
 
 param:
   command-service: localhost
   query-service: localhost
+
+

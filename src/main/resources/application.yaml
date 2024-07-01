@@ -1,39 +1,4 @@
-springdoc:
-#  api-docs.path: /openapi/v3/api-docs
-#  packagesToScan: com.example.nserver
-#  pathsToMatch: /**
-#  swagger-ui:
-#    path: /custom-swagger-ui/index.html
-  api-docs:
-    version: openapi_3_0
-
-
 spring:
-  cloud:
-      compatibility-verifier:
-        enabled: false
-  #  cloud:
-#    eureka:
-#      client:
-#        serviceUrl:
-#          defaultZone: http://localhost:8761/eureka
-
-  #  servlet:
-#    cors:4
-#      allow-origins: null
-#      allowed-methods: GET,POST,DELETE,UPDATE
-#      allowedHeaders: "*"
-#      allowCredentials: true
-#    allowed-headers:
-#      - Content-Type
-#      - Authorization
-#      - X-Custom-Header
-#  mvc:
-#    messageConverters:
-#      -
-#        converter:
-#          type: org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
-
   datasource:
     url: jdbc:mysql://localhost:3306/micro_db?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
     username: root
@@ -46,40 +11,25 @@ spring:
       hibernate.format_sql: true
 
     show-sql: true
-
-  zipkin:
-    base-url: http://localhost:9411
-
-
 server:
   error:
     include-binding-errors: always
     include-message: always
   port: 8080
-
 token:
   jwt:
     secretKey: 413F4428472783999G9329HND9032MPENKSE9UND0303900291NNE0DNQ9WQWN0239NDE94B6250655368566D5970337336763979244226452948404D6351
-
-#management:
-#  tracing:
-#    sampling:
-#      probability: 1.0
-
-#app:
-#  query-service:
-#    host: localhost
-#    port: 8082
-#
-#  command-service:
-#    host: localhost
-#    port: 8081
-#
-#  security-service:
-#    host: localhost
-#    port: 8083
-
 param:
   command-service: localhost
   query-service: localhost
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
 
+logging:
+  level:
+    org.springframework.web.cors: DEBUG
+    org.springframework.cloud.gateway: DEBUG

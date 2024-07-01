@@ -13,9 +13,12 @@ spring:
       hibernate.format_sql: true
     show-sql: true
 
+  # zipkin
   zipkin:
-    tracing:
-      endpoint: http://zipkin:9411
+    base-url: http://zipkin:9411/
+  sleuth:
+    sampler:
+      probability: 1.0
 
 
 token:
@@ -57,10 +60,10 @@ param:
   command-service: command-service
   query-service: query-service
 
-management:
-  tracing:
-    sampling:
-      probability: 1.0
+#management:
+#  tracing:
+#    sampling:
+#      probability: 1.0
 
 
 eureka:
