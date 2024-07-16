@@ -1,15 +1,13 @@
 spring:
   application:
     name: server-service
-
   zipkin:
-    base-url: http://localhost:9411/
+    base-url: http://zipkin:9411/
     collector:
-      host: localhost
+      host: zipkin
   sleuth:
     sampler:
       probability: 1.0
-
 token:
   jwt:
     secretKey: 413F4428472783999G9329HND9032MPENKSE9UND0303900291NNE0DNQ9WQWN0239NDE94B6250655368566D5970337336763979244226452948404D6351
@@ -51,7 +49,6 @@ springdoc:
 param:
   command-service: localhost
   query-service: localhost
-
 logging:
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'

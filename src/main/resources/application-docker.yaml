@@ -19,12 +19,6 @@ spring:
   sleuth:
     sampler:
       probability: 1.0
-
-
-
-
-
-
 token:
   jwt:
     secretKey: 413F4428472783999G9329HND9032MPENKSE9UND0303900291NNE0DNQ9WQWN0239NDE94B6250655368566D5970337336763979244226452948404D6351
@@ -62,19 +56,15 @@ springdoc:
 param:
   command-service: command-service
   query-service: query-service
-
 logging:
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
-
-
 eureka:
   client:
     serviceUrl:
       defaultZone: http://discovery-service:8761/eureka
     fetch-registry: true
     register-with-eureka: true
-
 metrics:
   distribution:
     percentiles-histogram:
