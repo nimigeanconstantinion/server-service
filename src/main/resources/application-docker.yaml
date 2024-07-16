@@ -71,3 +71,11 @@ metrics:
       http:
         server:
           requests: true
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0 # only for testing purpose, switch back to 0.1 for production code
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
