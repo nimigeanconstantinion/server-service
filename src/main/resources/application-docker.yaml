@@ -12,31 +12,15 @@ spring:
       hibernate-dialect: org.hibernate.dialect.MySQLDialect
       hibernate.format_sql: true
     show-sql: true
-#  zipkin:
-#    base-url: http://zipkin:9411/
-#    collector:
-#      host: zipkin
-#
-#  sleuth:
-#    sampler:
-#      probability: 1.0
-
   zipkin:
+    base-url: http://zipkin:9411/
     collector:
       host: zipkin
-      port: 9411
-    sender:
-      async:
-        queue-size: 1000
-        flush-interval: 5000
-      buffer-size: 1000
-    zipkin.trace.enabled: true
+  sleuth:
+    sampler:
+      probability: 1.0
 
-micrometer:
-  export:
-    zipkin:
-      flush-interval: 500
-      endpoint: http://zipkin:9411/api/v2/spans
+
 
 
 
