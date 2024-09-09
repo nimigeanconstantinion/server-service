@@ -33,6 +33,9 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         System.out.println("Am intrat cu :"+request.toString());
+//        HttpServletRequest httpRequest = (HttpServletRequest) request;
+
+        log.info("ClientIp: "+request.getRemoteAddr());
         if (request.getMethod().equalsIgnoreCase("OPTIONS_HTTP_METHOD")) {
             response.setStatus(OK.value());
         } else {

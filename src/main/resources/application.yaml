@@ -35,17 +35,12 @@ eureka:
       defaultZone: http://localhost:8761/eureka
     fetch-registry: true
     register-with-eureka: true
-logging:
-  level:
-    org.springframework.web.cors: DEBUG
-    org.springframework.cloud.gateway: DEBUG
 metrics:
   distribution:
     percentiles-histogram:
       http:
         server:
           requests: true
-
 management:
   tracing:
     sampling:
@@ -53,3 +48,8 @@ management:
   zipkin:
     tracing:
       endpoint: http://localhost:9411/api/v2/spans
+logging:
+  level:
+    root: debug
+  file:
+    name: nserver.log

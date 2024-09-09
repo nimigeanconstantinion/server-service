@@ -179,8 +179,12 @@ public class ServerController {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
     public ResponseEntity<UserDTO> login(@RequestBody UserDTO user){
+        String outlog="2LOGIN with:"+user.getEmail();
+        System.out.println(outlog);
         User usr=userService.getUserFromEmail(user.getEmail());
-        System.out.println("Sunt la login cu"+usr.getEmail());
+
+
+        //        System.out.println("Sunt la login cu"+usr.toString());
         if(usr!=null){
 
 
@@ -189,12 +193,18 @@ public class ServerController {
                 UserDTO usrDT=userService.userToDTO(usr);
                 usrDT.setToken(tkn);
                 System.out.println("Nu-mi va da eroare");
+                outlog+=";_SUCCES LOGIN_";
+                log.info(outlog);
                 return new ResponseEntity<>(usrDT,HttpStatus.OK);
             }else{
+                outlog+=";_FAIL PASSWORD_";
+                log.info(outlog);
                 throw new RuntimeException("Password did not match , retry!!");
             }
 
         }else{
+            outlog+=";_FAIL USER_";
+            log.info(outlog);
             throw new RuntimeException("User din not exists !! Please Sign-up!!");
 
 
