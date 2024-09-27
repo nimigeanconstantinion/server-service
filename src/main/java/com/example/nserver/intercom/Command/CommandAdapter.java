@@ -30,6 +30,7 @@ public class CommandAdapter {
         ResponseEntity<MapStocOpt> response=commandClient.addMapStoc(mp);
 
         if(response.getStatusCode()== HttpStatus.OK){
+
             return response.getBody();
         }
         throw new RuntimeException("Nu am reusit adaugarea!!");

@@ -120,8 +120,11 @@ public class ServerController {
     @PostMapping("/addmap")
     public ResponseEntity<MapStocOpt> addMapStocOpt(@RequestBody MapStocOpt mp){
         try{
+
             MapStocOpt mpp=commandAdapter.addMapStoc(mp);
+            log.info("_ADDED:"+mp.toString());
             return ResponseEntity.ok(mpp);
+
         }catch (RuntimeException e){
             throw e;
         }

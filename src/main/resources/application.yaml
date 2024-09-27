@@ -3,6 +3,7 @@ spring:
     url: jdbc:mysql://localhost:3306/micro_db?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
     username: root
     password: root
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -11,45 +12,56 @@ spring:
       hibernate.format_sql: true
 
     show-sql: true
+
   zipkin:
     base-url: http://localhost:9411/
     collector:
       host: localhost
+
   sleuth:
     sampler:
       probability: 1.0
+
 server:
   error:
     include-binding-errors: always
     include-message: always
   port: 8080
+
 token:
   jwt:
     secretKey: 413F4428472783999G9329HND9032MPENKSE9UND0303900291NNE0DNQ9WQWN0239NDE94B6250655368566D5970337336763979244226452948404D6351
 param:
   command-service: localhost
   query-service: localhost
+
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka
     fetch-registry: true
     register-with-eureka: true
+
 metrics:
   distribution:
     percentiles-histogram:
       http:
         server:
           requests: true
+
 management:
   tracing:
     sampling:
       probability: 1.0 # only for testing purpose, switch back to 0.1 for production code
+
   zipkin:
     tracing:
       endpoint: http://localhost:9411/api/v2/spans
+
 logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
   level:
     root: debug
   file:
-    name: nserver.log
+    name: nserver-service.log
