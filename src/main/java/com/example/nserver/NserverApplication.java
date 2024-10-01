@@ -29,7 +29,7 @@ public class NserverApplication {
 		UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 		corsConfiguration.setAllowCredentials(true);
-		corsConfiguration.setAllowedOrigins(Arrays.asList( "http://localhost:5000","http://localhost:3000","http://34.247.255.42:5000","http://34.247.255.42:3000"));
+		corsConfiguration.setAllowedOrigins(Arrays.asList( "http://localhost:5000","http://localhost:3000","http://34.247.255.42:5000","http://34.247.255.42:3000","http://78.96.25.131:5000"));
 		corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
 				"Accept", "Jwt-Token", "Authorization", "Origin, Accept", "X-Requested-With",
 				"Access-Control-Request-Method", "Access-Control-Request-Headers", "Access-Control-Allow-Headers"));
