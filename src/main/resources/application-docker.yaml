@@ -12,6 +12,7 @@ spring:
       hibernate-dialect: org.hibernate.dialect.MySQLDialect
       hibernate.format_sql: true
     show-sql: true
+
   zipkin:
     base-url: http://zipkin:9411/
     collector:
@@ -86,3 +87,6 @@ management:
   zipkin:
     tracing:
       endpoint: http://zipkin:9411/api/v2/spans
+
+cors:
+  allowed-origin: ${ADDITIONAL_CORS_ORIGIN:http://localhost:5000,http://localhost:3000}

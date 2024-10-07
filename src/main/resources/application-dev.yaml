@@ -78,3 +78,5 @@ management:
 #    root: debug
 #  file:
 #    name: server.log
+cors:
+  allowed-origin: ${ADDITIONAL_CORS_ORIGIN:http://localhost:5000,http://localhost:3000}

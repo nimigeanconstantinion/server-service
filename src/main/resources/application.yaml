@@ -65,3 +65,8 @@ logging:
     root: debug
   file:
     name: nserver-service.log
+#
+#cors:
+#  allowed-origin: ${CORS_ALLOWED_ORIGIN}
+cors:
+  allowed-origin: ${ADDITIONAL_CORS_ORIGIN:http://localhost:5000,http://localhost:3000}
