@@ -146,6 +146,7 @@ public class ServerController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/del/{idP}")
     public ResponseEntity<Boolean> delMapByID(@PathVariable String idP){
+        log.info("stergere produs");
         return ResponseEntity.ok(commandAdapter.deleteMapStoc(idP));
     }
     @Operation(tags = "Command-service",summary = "update product with body content",
