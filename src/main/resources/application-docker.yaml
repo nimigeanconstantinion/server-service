@@ -88,5 +88,13 @@ management:
     tracing:
       endpoint: http://zipkin:9411/api/v2/spans
 
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
 cors:
   allowed-origin: ${ADDITIONAL_CORS_ORIGIN:http://localhost:5000,http://localhost:3000}
