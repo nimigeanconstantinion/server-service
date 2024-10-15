@@ -91,10 +91,13 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: health, info, prometheus
   endpoint:
     health:
       show-details: always
+    prometheus:
+      enabled: true
+
 
 cors:
   allowed-origin: ${ADDITIONAL_CORS_ORIGIN:http://localhost:5000,http://localhost:3000}
