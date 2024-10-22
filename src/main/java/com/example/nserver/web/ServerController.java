@@ -183,32 +183,25 @@ public class ServerController {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
     public ResponseEntity<UserDTO> login(@RequestBody UserDTO user){
-        String outlog="2LOGIN with:"+user.getEmail();
-        System.out.println(outlog);
+        log.info("2LOGIN with:"+user.getEmail());
         User usr=userService.getUserFromEmail(user.getEmail());
 
-
-        //        System.out.println("Sunt la login cu"+usr.toString());
         if(usr!=null){
-
 
             if(bCryptPasswordEncoder.matches(user.getPassword(),usr.getPassword())){
                 String tkn=jwtTokenProvider.generateJWTToken(usr);
                 UserDTO usrDT=userService.userToDTO(usr);
                 usrDT.setToken(tkn);
-                System.out.println("Nu-mi va da eroare");
-                outlog+=";_SUCCES LOGIN_";
-                log.info(outlog);
+                log.info("serverLoginSucces: "+usr.getEmail());
                 return new ResponseEntity<>(usrDT,HttpStatus.OK);
             }else{
-                outlog+=";_FAIL PASSWORD_";
-                log.info(outlog);
+                log.error("serverLoginFailPassword: "+usr.getEmail());
                 throw new RuntimeException("Password did not match , retry!!");
             }
 
         }else{
-            outlog+=";_FAIL USER_";
-            log.info(outlog);
+            log.error("serverLoginNoUser: "+usr.getEmail());
+
             throw new RuntimeException("User din not exists !! Please Sign-up!!");
 
 
@@ -227,13 +220,18 @@ public class ServerController {
             newUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             newUser.setEmail(user.getEmail());
             newUser.setRole(UserRole.USER);
-//            newUser.setRole();
+            log.info("serverRegisterSucces: "+usr.getEmail());
+
+            //            newUser.setRole();
             newUser.setName(user.getName());
             userService.addUser(newUser);
+
             return new ResponseEntity<>(jwtTokenProvider.generateJWTToken(newUser),HttpStatus.OK);
 
 
         }else{
+            log.error("serverRegisterFail: "+usr.getEmail());
+
             throw new RuntimeException("You can not sign-up !! User is already signed!!");
 
 

@@ -3,12 +3,14 @@ package com.example.nserver.service;
 import com.example.nserver.dto.UserDTO;
 import com.example.nserver.model.User;
 import com.example.nserver.repository.UserRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UserService {
 
 
@@ -31,6 +33,7 @@ public class UserService {
     public User addUser(User usr){
         Optional<User> user=userRepo.findUserByEmail(usr.getEmail());
         if(user.isEmpty()){
+
             userRepo.save(usr);
             return userRepo.findUserByEmail(usr.getEmail()).get();
         }
