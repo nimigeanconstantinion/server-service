@@ -200,7 +200,7 @@ public class ServerController {
             }
 
         }else{
-            log.error("serverLoginNoUser: "+usr.getEmail());
+            log.error("serverLoginNoUser: "+user.getEmail());
 
             throw new RuntimeException("User din not exists !! Please Sign-up!!");
 
