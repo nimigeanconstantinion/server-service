@@ -6,6 +6,8 @@ import com.example.nserver.intercom.Query.QueryAdapter;
 import com.example.nserver.jwt.JWTTokenProvider;
 import com.example.nserver.model.MapStocOpt;
 import com.example.nserver.model.User;
+import com.example.nserver.rabbitMqProducer.MessagePublisher;
+import com.example.nserver.rabbitMqProducer.MyMessage;
 import com.example.nserver.security.UserRole;
 import com.example.nserver.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,11 +37,11 @@ public class ServerController {
     private JWTTokenProvider jwtTokenProvider;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
+    private MessagePublisher messagePublisher;
     public ServerController(QueryAdapter queryAdapter,
                             CommandAdapter commandAdapter,UserService userService
     ,JWTTokenProvider jwtTokenProvider,AuthenticationManager authenticationManager,
-                            BCryptPasswordEncoder bCryptPasswordEncoder) {
+                            BCryptPasswordEncoder bCryptPasswordEncoder,MessagePublisher messagePublisher) {
         this.queryAdapter = queryAdapter;
         this.commandAdapter = commandAdapter;
 //        this.securityAdapter=securityAdapter;
@@ -47,6 +49,7 @@ public class ServerController {
         this.jwtTokenProvider=jwtTokenProvider;
         this.authenticationManager=authenticationManager;
         this.bCryptPasswordEncoder=bCryptPasswordEncoder;
+        this.messagePublisher=messagePublisher;
     }
 
 
@@ -146,8 +149,20 @@ public class ServerController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/del/{idP}")
     public ResponseEntity<Boolean> delMapByID(@PathVariable String idP){
-        log.info("stergere produs");
-        return ResponseEntity.ok(commandAdapter.deleteMapStoc(idP));
+        MyMessage myMessage=new MyMessage();
+        myMessage.setPriority(1);
+        myMessage.setContent(idP);
+        myMessage.setMessage("DEL_PROD_ID");
+        log.info("DELPROD_ANTE");
+        boolean status=messagePublisher.sendMessage(myMessage);
+
+        log.info("DELPROD_AFTER "+status);
+        if(status==true){
+//            return ResponseEntity.ok(commandAdapter.deleteMapStoc(idP));
+              return ResponseEntity.ok(true);
+        }else{
+              return ResponseEntity.badRequest().body(false);
+        }
     }
     @Operation(tags = "Command-service",summary = "update product with body content",
             description = "${}")

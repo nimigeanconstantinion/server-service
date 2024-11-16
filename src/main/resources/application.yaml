@@ -22,6 +22,12 @@ spring:
     sampler:
       probability: 1.0
 
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
 server:
   error:
     include-binding-errors: always
@@ -80,3 +86,10 @@ logging:
 #  allowed-origin: ${CORS_ALLOWED_ORIGIN}
 cors:
   allowed-origin: ${ADDITIONAL_CORS_ORIGIN:http://localhost:5000,http://localhost:3000}
+
+#  spring.rabbitmq.host=localhost
+#  spring.rabbitmq.port=5672
+#  spring.rabbitmq.username=guest
+#  spring.rabbitmq.password=guest
+#
+#  server.port=9000
