@@ -235,7 +235,7 @@ public class ServerController {
             newUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             newUser.setEmail(user.getEmail());
             newUser.setRole(UserRole.USER);
-            log.info("serverRegisterSucces: "+usr.getEmail());
+            log.info("serverRegisterSucces: "+user.getEmail());
 
             //            newUser.setRole();
             newUser.setName(user.getName());
