@@ -37,7 +37,17 @@ public class MapStocOpt {
     @Column(name = "nrZile")
     private int nr_zile;
 
-    public String toString(){
-        return "id:"+id+";articol:"+articol.trim()+";id_furniz:"+id_furn+";furnizor:"+furniz.trim()+";nr_zile:"+nr_zile;
+    @Override
+    public String toString() {
+        return "MapStocOpt{" +
+                "id=" + id +
+                ", idIntern='" + idIntern + '\'' +
+                ", articol='" + articol + '\'' +
+                ", categorie='" + categorie + '\'' +
+                ", grupa='" + grupa + '\'' +
+                ", id_furn=" + id_furn +
+                ", furniz='" + furniz + '\'' +
+                ", nr_zile=" + nr_zile +
+                '}';
     }
 }

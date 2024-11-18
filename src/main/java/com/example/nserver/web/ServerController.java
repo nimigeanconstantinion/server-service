@@ -137,12 +137,24 @@ public class ServerController {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/addbulk")
     public ResponseEntity<Boolean> addBulkMapStocOpt(@RequestBody List<MapStocOpt> mp){
-        try{
-            boolean mpp=commandAdapter.addBulkMapStoc(mp);
-            return ResponseEntity.ok(mpp);
-        }catch (RuntimeException e){
-            throw e;
+        MyMessage myMessage=new MyMessage();
+        myMessage.setPriority(1);
+        myMessage.setContent(mp);
+        myMessage.setMessage("UPD_PROD_BULK");
+        boolean status=messagePublisher.sendMessageListMapStocOpt(myMessage);
+        if(status==true){
+            return ResponseEntity.ok(true);
+
+        }else{
+            return ResponseEntity.badRequest().body(false);
         }
+//
+//        try{
+//            boolean mpp=commandAdapter.addBulkMapStoc(mp);
+//            return ResponseEntity.ok(mpp);
+//        }catch (RuntimeException e){
+//            throw e;
+//        }
     }
     @Tag(name = "Command-service")
 
@@ -154,7 +166,7 @@ public class ServerController {
         myMessage.setContent(idP);
         myMessage.setMessage("DEL_PROD_ID");
         log.info("DELPROD_ANTE");
-        boolean status=messagePublisher.sendMessage(myMessage);
+        boolean status=messagePublisher.sendMessageString(myMessage);
 
         log.info("DELPROD_AFTER "+status);
         if(status==true){
@@ -169,13 +181,22 @@ public class ServerController {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/upd")
     public ResponseEntity<MapStocOpt> updateMapStoc(@RequestBody MapStocOpt uMap){
-
-        try{
-            MapStocOpt mpp=commandAdapter.updMap(uMap);
-            return ResponseEntity.ok(mpp);
-        }catch (RuntimeException e){
-            throw e;
+        MyMessage myMessage=new MyMessage();
+        myMessage.setPriority(1);
+        myMessage.setContent(uMap);
+        myMessage.setMessage("UPD_PROD");
+        boolean status=messagePublisher.sendMessageMapStocOpt(myMessage);
+        if(status==true){
+            return ResponseEntity.ok(uMap);
+        }else{
+            return ResponseEntity.badRequest().body(null);
         }
+//        try{
+////            MapStocOpt mpp=commandAdapter.updMap(uMap);
+//            return ResponseEntity.ok(mpp);
+//        }catch (RuntimeException e){
+//            throw e;
+//        }
     }
 
 //    @CrossOrigin(origins = {"http://localhost:3000"})
