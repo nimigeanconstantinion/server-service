@@ -74,13 +74,13 @@ param:
 #      enabled: true
 
 
-logging:
-  pattern:
-    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
-  level:
-    root: debug
-  file:
-    name: nserver-service.log
+#logging:
+#  pattern:
+#    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+#  level:
+#    root: debug
+#  file:
+#    name: nserver-service.log
 
 cors:
   allowed-origin: ${ADDITIONAL_CORS_ORIGIN:http://localhost:5000,http://localhost:3000}
