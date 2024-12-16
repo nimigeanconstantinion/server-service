@@ -27,16 +27,52 @@ spring:
 #    port: 5672
 #    username: guest
 #    password: guest
-
+#
 server:
   error:
     include-binding-errors: always
     include-message: always
   port: 8080
-
+#
 token:
   jwt:
     secretKey: 413F4428472783999G9329HND9032MPENKSE9UND0303900291NNE0DNQ9WQWN0239NDE94B6250655368566D5970337336763979244226452948404D6351
+springdoc:
+  api-docs:
+    enabled: true
+    common:
+      version: 1.0.0
+      title: Sample Microservices API
+      description: Description of the API...
+      termsOfService: MY TERMS OF SERVICE
+      license: MY LICENSE
+      licenseUrl: MY LICENSE URL
+      externalDocDesc: MY WIKI PAGE
+      externalDocUrl: MY WIKI URL
+      contact:
+        name: NAME OF CONTACT
+        url: URL TO CONTACT
+        email: contact@mail.com
+    query-serv:
+      description: "get list of all products from External DB"
+      notes: |
+        # Notes
+
+        The service fetch list of MapStocOpt from external DB in purpose of updating owned DB
+
+        The fetch will return :
+
+        **1.** List of MapStocOpt object
+
+        **2.** Will insert an entry in log.info with message :"Am reusit fetch din bd mapstoc" and the list.size
+
+        # Test Title
+          ljlljl
+
+
+
+
+
 param:
   command-service: localhost
   query-service: localhost
@@ -72,8 +108,8 @@ param:
 #      show-details: always
 #    prometheus:
 #      enabled: true
-
-
+#
+#
 #logging:
 #  pattern:
 #    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
@@ -81,7 +117,7 @@ param:
 #    root: debug
 #  file:
 #    name: nserver-service.log
-
+#
 cors:
   allowed-origin: ${ADDITIONAL_CORS_ORIGIN:http://localhost:5000,http://localhost:3000}
 
