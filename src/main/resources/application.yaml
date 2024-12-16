@@ -13,20 +13,20 @@ spring:
 
     show-sql: true
 
-  zipkin:
-    base-url: http://localhost:9411/
-    collector:
-      host: localhost
-
-  sleuth:
-    sampler:
-      probability: 1.0
-
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+#  zipkin:
+#    base-url: http://localhost:9411/
+#    collector:
+#      host: localhost
+#
+#  sleuth:
+#    sampler:
+#      probability: 1.0
+#
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
 
 server:
   error:
@@ -41,37 +41,37 @@ param:
   command-service: localhost
   query-service: localhost
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka
-    fetch-registry: true
-    register-with-eureka: true
-
-metrics:
-  distribution:
-    percentiles-histogram:
-      http:
-        server:
-          requests: true
-
-management:
-  tracing:
-    sampling:
-      probability: 1.0 # only for testing purpose, switch back to 0.1 for production code
-
-  zipkin:
-    tracing:
-      endpoint: http://localhost:9411/api/v2/spans
-  endpoints:
-    web:
-      exposure:
-        include: health, info, prometheus
-  endpoint:
-    health:
-      show-details: always
-    prometheus:
-      enabled: true
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka
+#    fetch-registry: true
+#    register-with-eureka: true
+#
+#metrics:
+#  distribution:
+#    percentiles-histogram:
+#      http:
+#        server:
+#          requests: true
+#
+#management:
+#  tracing:
+#    sampling:
+#      probability: 1.0 # only for testing purpose, switch back to 0.1 for production code
+#
+#  zipkin:
+#    tracing:
+#      endpoint: http://localhost:9411/api/v2/spans
+#  endpoints:
+#    web:
+#      exposure:
+#        include: health, info, prometheus
+#  endpoint:
+#    health:
+#      show-details: always
+#    prometheus:
+#      enabled: true
 
 
 logging:
@@ -81,15 +81,7 @@ logging:
     root: debug
   file:
     name: nserver-service.log
-#
-#cors:
-#  allowed-origin: ${CORS_ALLOWED_ORIGIN}
+
 cors:
   allowed-origin: ${ADDITIONAL_CORS_ORIGIN:http://localhost:5000,http://localhost:3000}
 
-#  spring.rabbitmq.host=localhost
-#  spring.rabbitmq.port=5672
-#  spring.rabbitmq.username=guest
-#  spring.rabbitmq.password=guest
-#
-#  server.port=9000
