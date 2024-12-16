@@ -187,6 +187,7 @@ public class ServerController {
         myMessage.setMessage("UPD_PROD");
         boolean status=messagePublisher.sendMessageMapStocOpt(myMessage);
         if(status==true){
+
             return ResponseEntity.ok(uMap);
         }else{
             return ResponseEntity.badRequest().body(null);
