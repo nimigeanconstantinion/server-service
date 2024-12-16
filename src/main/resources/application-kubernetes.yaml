@@ -3,5 +3,8 @@ spring:
     url: jdbc:mysql://mysql-service:3306/testdb?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true
     username: testuser
     password: testpass
+param:
+  command-service: command-service
+  query-service: query-service
 logging:
   level.org.springframework=INFO
