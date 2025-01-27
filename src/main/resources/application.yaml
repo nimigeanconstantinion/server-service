@@ -119,5 +119,5 @@ param:
 #    name: nserver-service.log
 #
 cors:
-  allowed-origin: ${ADDITIONAL_CORS_ORIGIN:http://localhost:5000,http://localhost:3000}
+  allowed-origin: ${ADDITIONAL_CORS_ORIGIN:http://localhost:5000,http://localhost:3000,http://react-app.local,http://gateway:5000.http://gateway:3000}
 
