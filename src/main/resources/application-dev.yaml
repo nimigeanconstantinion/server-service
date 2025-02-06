@@ -2,13 +2,13 @@ spring:
   application:
     name: server-service
 
-#  zipkin:
-#    base-url: http://localhost:9411/
-#    collector:
-#      host: localhost
-#  sleuth:
-#    sampler:
-#      probability: 1.0
+  zipkin:
+    base-url: http://localhost:9411/
+    collector:
+      host: localhost
+  sleuth:
+    sampler:
+      probability: 1.0
 token:
   jwt:
     secretKey: 413F4428472783999G9329HND9032MPENKSE9UND0303900291NNE0DNQ9WQWN0239NDE94B6250655368566D5970337336763979244226452948404D6351
@@ -58,25 +58,25 @@ param:
 #  file:
 #    name: nserver.log
 #
-#metrics:
-#  distribution:
-#    percentiles-histogram:
-#      http:
-#        server:
-#          requests: true
+metrics:
+  distribution:
+    percentiles-histogram:
+      http:
+        server:
+          requests: true
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0 # only for testing purpose, switch back to 0.1 for production code
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
 #
-#management:
-#  tracing:
-#    sampling:
-#      probability: 1.0 # only for testing purpose, switch back to 0.1 for production code
-#  zipkin:
-#    tracing:
-#      endpoint: http://localhost:9411/api/v2/spans
-##
-#logging:
-#  level:
-#    root: debug
-#  file:
-#    name: server.log
+logging:
+  level:
+    root: debug
+  file:
+    name: server.log
 cors:
   allowed-origin: ${ADDITIONAL_CORS_ORIGIN:http://localhost:5000,http://localhost:3000}

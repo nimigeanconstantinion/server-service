@@ -3,8 +3,55 @@ spring:
     url: jdbc:mysql://mysql-service:3306/testdb?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true
     username: testuser
     password: testpass
+
+  rabbitmq:
+    port: 5672
+    username: guest
+    password: guest
+    host: rabbitmq
+
+  zipkin:
+    base-url: http://zipkin:9411/
+    collector:
+      host: zipkin
+
+  sleuth:
+    sampler:
+      probability: 1.0
 param:
   command-service: command-service
   query-service: query-service
 logging:
   level.org.springframework=INFO
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+
+metrics:
+  distribution:
+    percentiles-histogram:
+      http:
+        server:
+          requests: true
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0 # only for testing purpose, switch back to 0.1 for production code
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
+
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
+  endpoint:
+    health:
+      show-details: always
+    prometheus:
+      enabled: true
