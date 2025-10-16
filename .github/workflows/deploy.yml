@@ -2,7 +2,9 @@ name: CD - Deploy NServer API
 
 on:
   push:
-    branches: [ master ]
+    branches: 
+      - master
+      - feat/**
   workflow_dispatch:
 
 permissions:
